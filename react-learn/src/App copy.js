@@ -1,21 +1,33 @@
-import React, { Component } from 'react'
-import FadeTransition from "./components/common/FadeTransition"
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-export default class App extends Component {
-    state = {
-        show: true
-    }
+function A() {
+    return <h1>组件A</h1>
+}
 
-    render() {
-        return <div>
-            <FadeTransition timeout={5000} in={this.state.show}>
-                <h1>标题</h1>
-            </FadeTransition>
-            <button onClick={() => {
-                this.setState({
-                    show: !this.state.show
-                })
-            }}>切换显示状态</button>
-        </div>
-    }
+function B() {
+    return <h1>组件B</h1>
+}
+
+function C() {
+    return <h1>
+        找不到页面
+        <Route path="/abc" component={D} />
+    </h1>
+}
+
+function D() {
+    return <span>组件D</span>
+}
+
+export default function App() {
+    return (
+        <Router>
+            <Switch>
+                <Route path="/a" component={A}></Route>
+                <Route path="/a/b" component={B}></Route>
+                <Route component={C}></Route>
+            </Switch>
+        </Router>
+    )
 }
