@@ -1,41 +1,15 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from "react-router-dom"
-
-//   /a
-function A() {
-    return <h1>组件A</h1>
-}
-
-//   /a/b
-function B() {
-    return <h1>组件B</h1>
-}
-
-// 任意路径
-function C() {
-    return <h1>
-        找不到页面
-        <Route path="/abc" exact component={D} />
-    </h1>
-}
-
-function D() {
-    return <span>D组件</span>
-}
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import Login from './pages/Login'
+import Admin from './pages/Admin'
 
 export default function App() {
     return (
         <Router>
-            <Route path="/a" exact component={A}>
-                {() => {
-                    return <div>
-                        <h1 style={{ color: "red" }}>必定会看到的内容</h1>
-                        <p>adfasdfasdf</p>
-                    </div>
-                }}
-            </Route>
-            <Route path="/a/b" component={B} />
-            <Route component={C} />
+            <Switch>
+                <Route path="/login" exact component={Login}></Route>
+                <Route path="/" component={Admin}></Route>
+            </Switch>
         </Router>
     )
 }
