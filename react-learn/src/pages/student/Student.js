@@ -6,6 +6,10 @@ import { useState, useEffect } from 'react'
 import qs from 'query-string'
 import Pager from '../../components/common/Pager'
 
+/**
+ * 该函数用于获取地址栏参数中提供的查询条件，返回一个对象
+ * 如果某些条件在地址中缺失，该函数会使用默认值defaultQuery
+ */
 function getQuery(search) {
     const defaultQuery = {
         page: 1,
@@ -21,13 +25,14 @@ function getQuery(search) {
     return query;
 }
 
-// 获取服务器的响应结果
+// 该函数是一个自定义的Hook，用于获取服务器的响应结果
 function useResp(query) {
     const [resp, setResp] = useState({
         cont: 0,
         datas: []
     });
     useEffect(() => {
+        // 通过searchStudents函数获取数据，传递到resp中
         searchStudents({
             page: query.page,
             limit: query.limit,
@@ -40,13 +45,14 @@ function useResp(query) {
     return resp
 }
 
+// 改变地址栏中的地址，用于获取新的数据，渲染新的页面
 function changeLocation(newQuery, history) {
-    const query = qs.stringify(newQuery);
+    const query = qs.stringify(newQuery); // 将对象的形式转换为字符串的形式
     history.push('?' + query)
 }
 
 export default function Student(props) {
-    const query = getQuery(props.location.search)
+    const query = getQuery(props.location.search) // query是一个由page、limit、key和sex构成的对象
     const resp = useResp(query)
     return (
         <>
@@ -64,6 +70,7 @@ export default function Student(props) {
                     changeLocation(newQuery, props.history)
                 }}
             />
+            {/* resp.datas是一个数组 */}
             <StudentTable stus={resp.datas} />
             <Pager
                 current={query.page}
