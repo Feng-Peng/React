@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, NavLink, Redirect, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom"
 import './App.css'
 
 function A() {
@@ -42,14 +42,8 @@ export default function App() {
     return (
         <Router>
             <Move />
-            <Switch>
-                <Route path="/a" component={A} />
-                <Route path="/b" component={B} />
-                <Redirect
-                    from="/abc/:id"
-                    to="/a/:id"
-                />
-            </Switch>
+            <Route path="/a" component={A} />
+            <Route path="/b" component={B} />
         </Router>
     )
 }
