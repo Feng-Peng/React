@@ -1,38 +1,40 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
-function A() {
-    return <h1>组件A</h1>
-}
-
-function B() {
-    return <h1>组件B</h1>
-}
-
-function Move() {
+function User(props) {
     return <div>
-        <Link
-            to="/a"
-            innerRef={node => {
-                console.log(node)
-            }}
-            replace={true} style={{
-                marginRight: 10
-            }}>去组件A</Link>
-        <Link to={{
-            pathname: "/b",
-            hash: "#abc",
-            search: "?a=1&b=2"
-        }} > 去组件B</Link>
+        <h1>user组件固定的区域</h1>
+        <Link to={`${props.match.url}/update`}>组件更新</Link>
+        <Link to={`${props.match.url}/pay`}>支付</Link>
+        <div style={{
+            width: 500,
+            height: 500,
+            border: '1px solid #000',
+            background: 'lightblue',
+            margin: '0 auto'
+        }}>
+            <Route path={`${props.match.url}/update`} component={Update} />
+            <Route path={`${props.match.url}/pay`} component={Pay} />
+        </div>
+    </div>
+}
+
+function Update(){
+    return <div>
+        <h1>组件更新页面</h1>
+    </div>
+}
+
+function Pay(){
+    return <div>
+        <h1>支付页面</h1>
     </div>
 }
 
 export default function App() {
     return (
         <Router>
-            <Move />
-            <Route path="/a" component={A} />
-            <Route path="/b" component={B} />
+            <Route path="/u" component={User} />
         </Router>
     )
 }
