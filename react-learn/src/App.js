@@ -1,41 +1,27 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import config from './RouteConfig'
-
-function User(props) {
-    return <div>
-        <h1>user组件固定的区域</h1>
-        <Link to={config.user.update}>组件更新</Link>
-        <Link to={config.user.pay}>支付</Link>
-        <div style={{
-            width: 500,
-            height: 500,
-            border: '1px solid #000',
-            background: 'lightblue',
-            margin: '0 auto'
-        }}>
-            <Route path={config.user.update} component={Update} />
-            <Route path={config.user.pay} component={Pay} />
-        </div>
-    </div>
-}
-
-function Update(){
-    return <div>
-        <h1>组件更新页面</h1>
-    </div>
-}
-
-function Pay(){
-    return <div>
-        <h1>支付页面</h1>
-    </div>
-}
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import Home from './Home'
+import Login from './Login'
+import Personal from './Personal'
+import ProtectedRoute from './ProtectedRoute'
 
 export default function App() {
     return (
         <Router>
-            <Route path={config.user.root} component={User} />
+            <div>
+                <ul>
+                    <li><Link to="/">首页</Link></li>
+                    <li><Link to="/login">登录页</Link></li>
+                    <li><Link to="/personal">个人信息页</Link></li>
+                </ul>
+            </div>
+            <div>
+                <Switch>
+                    <Route path="/login" component={Login} ></Route>
+                    <ProtectedRoute path="/personal" component={Personal} ></ProtectedRoute>
+                    <Route path="/" component={Home} ></Route>
+                </Switch>
+            </div>
         </Router>
     )
 }
