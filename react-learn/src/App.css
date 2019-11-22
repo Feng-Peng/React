@@ -1,0 +1,26 @@
+.page {
+    width: 800px;
+    margin: 0 auto;
+    border: 2px solid;
+}
+
+.nav {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: lightblue;
+    color: #fff;
+}
+
+.nav a {
+    display: block;
+    text-decoration: none;
+    font-size: 2em;
+    margin: 10px;
+    color: inherit;
+}
+
+a.active {
+    color: yellow;
+}

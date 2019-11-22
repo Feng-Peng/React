@@ -1,10 +1,9 @@
 import React from 'react'
-import { Route, NavLink } from "react-router-dom"
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom"
 import './App.css'
-import RouteGuard from './RouteGuard'
-import reset from './resetScroll'
+import withScroll from './withScroll'
 
-function Page1(props) {
+function Page1() {
     return <div className="page page1">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem animi soluta accusamus vitae? Velit ab rerum aliquam, odit nulla consequatur, corrupti dolorum, molestiae ipsa eos inventore ipsum incidunt! Atque, nam.
         Officia aliquam excepturi dolor. Voluptatibus distinctio, pariatur a velit hic repellendus autem nesciunt aperiam minima dicta? Esse totam sed dignissimos. A qui, velit adipisci neque excepturi deserunt atque sint quas!
@@ -109,7 +108,7 @@ function Page1(props) {
     </div>
 }
 
-function Page2(props) {
+function Page2() {
     return <div className="page page2">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem animi soluta accusamus vitae? Velit ab rerum aliquam, odit nulla consequatur, corrupti dolorum, molestiae ipsa eos inventore ipsum incidunt! Atque, nam.
         Officia aliquam excepturi dolor. Voluptatibus distinctio, pariatur a velit hic repellendus autem nesciunt aperiam minima dicta? Esse totam sed dignissimos. A qui, velit adipisci neque excepturi deserunt atque sint quas!
@@ -214,21 +213,21 @@ function Page2(props) {
     </div>
 }
 
+// 通过高阶组件withScroll对两个函数组件Page1和Page2进行处理，当切换组件时滚动条返回到顶端
+const Page1WithScrol1 = withScroll(Page1);
+const Page1WithScrol2 = withScroll(Page2);
+
 export default function App() {
     return (
         <>
-            <RouteGuard onChange={(preLocation, location) => {
-                if(preLocation.pathname !== location.pathname){
-                    reset();
-                }
-            }}>
-                <Route path="/page1" component={Page1}></Route>
-                <Route path="/page2" component={Page2}></Route>
+            <Router>
+                <Route path="/page1" component={Page1WithScrol1}></Route>
+                <Route path="/page2" component={Page1WithScrol2}></Route>
                 <div className="nav">
                     <NavLink to="/page1">页面1</NavLink>
                     <NavLink to="/page2">页面2</NavLink>
                 </div>
-            </RouteGuard>
+            </Router>
         </>
     )
 }
