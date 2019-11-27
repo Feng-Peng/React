@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from "./App"
-import memoryHistory from './react-router/memoryHistory'
+// import './react-router/browserHistory'
 
 ReactDOM.render(<App/>, document.getElementById('root'));
