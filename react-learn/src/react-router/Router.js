@@ -6,7 +6,7 @@ import matchPath from './pathMatch'
 export default class Router extends Component {
 
     static propTypes = {
-        history: PropTypes.object,
+        history: PropTypes.object.isRequired,
         children: PropTypes.node
     }
 
@@ -28,13 +28,14 @@ export default class Router extends Component {
         this.unListen();
     }
 
-    ctxValue = {} // 上下文中的对象（三个）
-
     render() {
-        this.ctxValue.history = this.props.history; // history对象不会变化
-        this.ctxValue.location = this.state.location;
-        this.ctxValue.match = matchPath('/', this.state.location.pathname)
-        return <ctx.Provider value={this.ctxValue}>
+        // 每次渲染的时候得到一个新的ctxValue对象
+        const ctxValue = {
+            history: this.props.history,
+            location: this.state.location,
+            match: matchPath('/', this.state.location.pathname)
+        }
+        return <ctx.Provider value={ctxValue}>
             {this.props.children}
         </ctx.Provider>
     }
