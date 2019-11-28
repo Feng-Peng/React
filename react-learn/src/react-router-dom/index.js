@@ -1,3 +1,5 @@
 export { default as BrowserRouter } from './BrowserRouter'
 export { withRouter } from '../react-router'
+export { default as Link } from './Link'
+export { default as NavLink } from './NavLink'
 export { Route, Switch } from '../react-router'
