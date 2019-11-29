@@ -1,21 +1,24 @@
-import { createStore } from '../redux'
+import { createStore, bindActionCreators } from '../redux'
 import reducer from './reducer'
 import { createAddUserAction, createDeleteUserAction } from './action/userAction'
 
 let store = createStore(reducer);
 
-
-// subscribe接收一个无参函数
-const unListen = store.subscribe(() => {
+store.subscribe(() => {
     console.log('监听器1', store.getState())
 })
 
-store.dispatch(createAddUserAction({
+let userAction = {
+    createAdd: createAddUserAction,
+    createDelete: createDeleteUserAction
+}
+
+const newUserAction = bindActionCreators(userAction, store.dispatch);
+
+newUserAction.createAdd({
     id: 3,
-    name: '新添加的用户',
-    age: 21
-}))
+    name: '用户1',
+    age: 11
+});
 
-unListen();
-
-store.dispatch(createDeleteUserAction(3))
+newUserAction.createDelete(3);
