@@ -16,7 +16,7 @@ export function createDeleteUserAction(id) {
     }
 }
 
-export function createUpdateUserAction({id, newMessage}) {
+export function createUpdateUserAction(id, newMessage) {
     return {
         type: UPDATEUSER,
         payload: {

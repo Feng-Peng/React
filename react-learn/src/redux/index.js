@@ -1,16 +1,23 @@
 import { createStore } from 'redux'
 import reducer from './reducer'
-import { createAddUserAction } from './action/userAction'
-import uuid from 'uuid';
+import { createAddUserAction, createDeleteUserAction } from './action/userAction'
 
 let store = createStore(reducer);
 
-console.log(store.getState());
+// subscribe接收一个无参函数
+store.subscribe(() => {
+    console.log(store.getState())
+})
 
 store.dispatch(createAddUserAction({
-    id: uuid(),
+    id: 3,
     name: '新添加的用户',
     age: 21
 }))
 
-console.log(store.getState());
+store.dispatch(createDeleteUserAction(3))
+
+// store.dispatch(createUpdateUserAction(3, {
+//     name: '新添加的用户',
+//     age: 80
+// }))
