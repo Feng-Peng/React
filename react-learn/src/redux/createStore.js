@@ -1,24 +1,5 @@
-/**
- * 判断一个对象是不是plane-object
- * @param {*} obj 
- */
-function isPlanObject(obj) {
-    if (typeof obj !== 'object') {
-        return false;
-    }
-    if (Object.getPrototypeOf(obj) === Object.prototype) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/**
- * 获取指向长度的字符串，该字符串只包含数字和字母
- */
-function random(length) {
-    return Math.random().toString(36).substr(2, length).split('').join('.');
-}
+import getRandomString from './utils/getRandomString'
+import isPlaneObject from './utils/isPlaneObject'
 
 /**
  * 接收一个参数，返回一个对象，对象中有三个函数
@@ -30,7 +11,7 @@ export default function createStore(reducer, state) {
     let listeners = []; // 该数组用于存放注册的监听器函数
 
     function dispatch(action) {
-        if(!isPlanObject(action)){
+        if (!isPlaneObject(action)) {
             throw new TypeError("action must be a plane Object");
         }
         if (action.type === undefined) {
@@ -61,7 +42,7 @@ export default function createStore(reducer, state) {
 
     // 创建store的时候要调用一次dispatch函数
     dispatch({
-        type: `@@/ININT${random()}`
+        type: `@@/ININT${getRandomString.INIT()}`
     });
 
     return {
