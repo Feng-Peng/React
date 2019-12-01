@@ -3,10 +3,9 @@ import reducer from './reducer'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-
 export default createStore(reducer,
     applyMiddleware(
-        thunk,
+        thunk.withExtraArgument('用户传的信息'),
         logger
     )
 );
